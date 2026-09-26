@@ -1,0 +1,782 @@
+<title>Librerías Andinas</title>
+<meta name="description" content="Librería peruana con sedes en Lima, Cusco y Arequipa: catálogo, sucursales y un asistente virtual que responde tus consultas al instante.">
+<style>
+  :root{
+    --paper:#F6F0E4;
+    --paper-2:#EFE6D4;
+    --ink:#2A211A;
+    --ink-soft:#5C4E40;
+    --terracota:#A6402C;
+    --terracota-2:#8A3122;
+    --oro:#B8862F;
+    --teal:#1F4A4C;
+    --line:#D8C9AC;
+    --card:#FFFDF8;
+    --focus:#1F4A4C;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --paper:#1B160F;
+      --paper-2:#241D14;
+      --ink:#EFE5D4;
+      --ink-soft:#C6B69C;
+      --terracota:#E07454;
+      --terracota-2:#C85C3E;
+      --oro:#D8A94B;
+      --teal:#6FA6A0;
+      --line:#3B2F22;
+      --card:#221B12;
+      --focus:#D8A94B;
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper:#1B160F;
+    --paper-2:#241D14;
+    --ink:#EFE5D4;
+    --ink-soft:#C6B69C;
+    --terracota:#E07454;
+    --terracota-2:#C85C3E;
+    --oro:#D8A94B;
+    --teal:#6FA6A0;
+    --line:#3B2F22;
+    --card:#221B12;
+    --focus:#D8A94B;
+  }
+
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:"Source Sans 3", "Segoe UI", system-ui, sans-serif;
+    padding-inline:0;
+    line-height:1.55;
+  }
+  a{color:inherit;}
+  img{max-width:100%;}
+  h1,h2,h3{
+    font-family:"Fraunces", "Iowan Old Style", Georgia, serif;
+    text-wrap:balance;
+    margin:0;
+    color:var(--ink);
+  }
+  .eyebrow{
+    font-family:"IBM Plex Mono","SFMono-Regular",Consolas,monospace;
+    font-size:.72rem;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--terracota);
+  }
+  .wrap{
+    max-width:1120px;
+    margin-inline:auto;
+    padding-inline:24px;
+  }
+  .thread{
+    height:3px;
+    width:64px;
+    background:repeating-linear-gradient(90deg, var(--oro) 0 10px, transparent 10px 16px);
+    margin-block:14px;
+  }
+
+  /* ---------- header ---------- */
+  header{
+    position:sticky;
+    top:env(safe-area-inset-top,0px);
+    z-index:50;
+    background:color-mix(in srgb, var(--paper) 92%, transparent);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding-block:14px;
+    gap:16px;
+  }
+  .brand{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-family:"Fraunces",serif;
+    font-weight:600;
+    font-size:1.2rem;
+  }
+  .brand-mark{
+    width:34px;height:34px;border-radius:8px;
+    background:linear-gradient(160deg, var(--terracota), var(--oro));
+    display:flex;align-items:center;justify-content:center;
+    color:#fff8ec;font-family:"Fraunces",serif;font-weight:700;font-size:1.1rem;
+    flex:none;
+  }
+  nav.links{
+    display:flex;
+    gap:22px;
+    list-style:none;
+    padding:0;margin:0;
+    font-size:.94rem;
+  }
+  nav.links a{text-decoration:none;color:var(--ink-soft);}
+  nav.links a:hover{color:var(--terracota);}
+  .btn{
+    display:inline-flex;align-items:center;gap:8px;
+    padding:10px 18px;
+    border-radius:999px;
+    font-size:.92rem;
+    font-weight:600;
+    border:1px solid transparent;
+    cursor:pointer;
+    text-decoration:none;
+    transition:transform .15s ease;
+  }
+  .btn:focus-visible, .chip:focus-visible, input:focus-visible, textarea:focus-visible, button:focus-visible{
+    outline:2px solid var(--focus);
+    outline-offset:2px;
+  }
+  .btn-primary{background:var(--terracota);color:#fff8ec;}
+  .btn-primary:hover{background:var(--terracota-2);}
+  .btn-ghost{background:transparent;color:var(--ink);border-color:var(--line);}
+  .btn-ghost:hover{border-color:var(--terracota);}
+
+  /* ---------- hero ---------- */
+  .hero{
+    padding-block:56px 40px;
+    display:grid;
+    grid-template-columns:1.15fr .85fr;
+    gap:40px;
+    align-items:center;
+  }
+  @media (max-width:820px){ .hero{grid-template-columns:1fr;} }
+  .hero h1{font-size:clamp(2.1rem,4.4vw,3.3rem);line-height:1.08;margin-block:10px 16px;}
+  .hero p{color:var(--ink-soft);font-size:1.05rem;max-width:52ch;}
+  .hero-ctas{display:flex;gap:12px;flex-wrap:wrap;margin-top:22px;}
+  .hero-art{
+    aspect-ratio:4/3;
+    border-radius:18px;
+    background:
+      radial-gradient(circle at 25% 20%, color-mix(in srgb, var(--oro) 35%, transparent), transparent 45%),
+      linear-gradient(155deg, var(--teal), var(--terracota-2));
+    position:relative;
+    overflow:hidden;
+    border:1px solid var(--line);
+  }
+  .hero-art svg{position:absolute;inset:0;width:100%;height:100%;}
+  .stat-row{display:flex;gap:28px;margin-top:28px;flex-wrap:wrap;}
+  .stat b{display:block;font-family:"Fraunces",serif;font-size:1.6rem;color:var(--terracota);}
+  .stat span{font-size:.8rem;color:var(--ink-soft);}
+
+  /* ---------- sections ---------- */
+  section{padding-block:52px;}
+  .section-head{max-width:60ch;margin-bottom:30px;}
+  .section-head h2{font-size:clamp(1.5rem,3vw,2.1rem);margin-top:8px;}
+  .section-head p{color:var(--ink-soft);margin-top:10px;}
+
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+  @media (max-width:900px){.grid3{grid-template-columns:repeat(2,1fr);}}
+  @media (max-width:600px){.grid3{grid-template-columns:1fr;}}
+
+  .card{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:22px;
+  }
+  .card h3{font-size:1.05rem;margin-bottom:8px;}
+  .card p{color:var(--ink-soft);font-size:.94rem;margin:0;}
+  .tag{
+    display:inline-block;
+    font-family:"IBM Plex Mono",monospace;
+    font-size:.7rem;
+    letter-spacing:.06em;
+    color:var(--teal);
+    background:color-mix(in srgb, var(--teal) 12%, transparent);
+    padding:4px 9px;
+    border-radius:6px;
+    margin-bottom:10px;
+  }
+
+  .stores{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+  @media (max-width:900px){.stores{grid-template-columns:1fr;}}
+  .store h3{font-size:1.02rem;}
+  .store .addr{font-family:"IBM Plex Mono",monospace;font-size:.82rem;color:var(--ink-soft);margin-top:6px;}
+
+  .quote-strip{
+    background:var(--paper-2);
+    border-top:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+  }
+  .quotes{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+  @media (max-width:900px){.quotes{grid-template-columns:1fr;}}
+  .quote{font-family:"Fraunces",serif;font-style:italic;font-size:1.05rem;}
+  .quote footer{margin-top:10px;font-family:"Source Sans 3",sans-serif;font-style:normal;font-size:.82rem;color:var(--ink-soft);}
+
+  /* ---------- contact ---------- */
+  .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:start;}
+  @media (max-width:820px){.contact-grid{grid-template-columns:1fr;}}
+  form{display:flex;flex-direction:column;gap:14px;}
+  label{font-size:.82rem;font-weight:600;color:var(--ink-soft);}
+  input,textarea{
+    font:inherit;
+    padding:11px 13px;
+    border-radius:9px;
+    border:1px solid var(--line);
+    background:var(--card);
+    color:var(--ink);
+    width:100%;
+  }
+  textarea{resize:vertical;min-height:96px;}
+  .field{display:flex;flex-direction:column;gap:6px;}
+  .send-row{display:flex;gap:12px;flex-wrap:wrap;margin-top:6px;}
+  .contact-info .card{margin-bottom:14px;}
+  .contact-info a.link{color:var(--terracota);text-decoration:none;font-weight:600;}
+  .form-note{font-size:.78rem;color:var(--ink-soft);margin-top:2px;}
+  #formStatus{font-size:.85rem;min-height:1.2em;}
+
+  footer{
+    border-top:1px solid var(--line);
+    padding-block:26px;
+    color:var(--ink-soft);
+    font-size:.85rem;
+  }
+  .foot-row{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;align-items:center;}
+
+  /* ---------- chatbot ---------- */
+  #chat-toggle{
+    position:fixed;
+    right:20px;
+    bottom:calc(20px + env(safe-area-inset-bottom,0px));
+    z-index:80;
+    width:60px;height:60px;
+    border-radius:50%;
+    border:none;
+    background:linear-gradient(155deg, var(--terracota), var(--oro));
+    color:#fff8ec;
+    box-shadow:0 10px 26px color-mix(in srgb, var(--terracota) 45%, transparent);
+    cursor:pointer;
+    display:flex;align-items:center;justify-content:center;
+  }
+  #chat-toggle svg{width:26px;height:26px;}
+  #chat-panel{
+    position:fixed;
+    right:20px;
+    bottom:calc(90px + env(safe-area-inset-bottom,0px));
+    z-index:80;
+    width:min(360px, calc(100vw - 32px));
+    max-height:min(560px, calc(100vh - 140px));
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:16px;
+    box-shadow:0 20px 50px rgba(0,0,0,.25);
+    display:flex;
+    flex-direction:column;
+    overflow:hidden;
+  }
+  #chat-panel[hidden]{display:none;}
+  .chat-head{
+    background:linear-gradient(135deg, var(--teal), var(--terracota-2));
+    color:#fff8ec;
+    padding:14px 16px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .chat-head b{font-family:"Fraunces",serif;font-size:1.02rem;}
+  .chat-head span{font-size:.75rem;opacity:.9;display:block;}
+  .chat-close{
+    margin-left:auto;background:transparent;border:none;color:#fff8ec;
+    font-size:1.2rem;cursor:pointer;line-height:1;padding:4px;
+  }
+  #chat-body{
+    flex:1;
+    overflow-y:auto;
+    padding:14px;
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    background:var(--paper-2);
+  }
+  .msg{
+    max-width:86%;
+    padding:9px 12px;
+    border-radius:12px;
+    font-size:.88rem;
+    line-height:1.45;
+  }
+  .msg.bot{
+    background:var(--card);
+    border:1px solid var(--line);
+    align-self:flex-start;
+    border-bottom-left-radius:3px;
+  }
+  .msg.user{
+    background:var(--terracota);
+    color:#fff8ec;
+    align-self:flex-end;
+    border-bottom-right-radius:3px;
+  }
+  .chips{display:flex;flex-wrap:wrap;gap:7px;padding:0 14px 12px;background:var(--paper-2);}
+  .chip{
+    border:1px solid var(--line);
+    background:var(--card);
+    color:var(--ink);
+    border-radius:999px;
+    padding:6px 11px;
+    font-size:.76rem;
+    cursor:pointer;
+    text-align:left;
+  }
+  .chip:hover{border-color:var(--terracota);color:var(--terracota);}
+  .chat-input-row{
+    display:flex;
+    gap:8px;
+    padding:10px;
+    border-top:1px solid var(--line);
+    background:var(--card);
+  }
+  .chat-input-row input{flex:1;padding:9px 12px;font-size:.88rem;}
+  .chat-input-row button{
+    background:var(--terracota);
+    color:#fff8ec;
+    border:none;
+    border-radius:9px;
+    padding:0 14px;
+    cursor:pointer;
+    font-weight:600;
+  }
+  .lead-box{
+    margin:0 14px 12px;
+    padding:12px;
+    border-radius:10px;
+    background:var(--card);
+    border:1px dashed var(--terracota);
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+  }
+  .lead-box[hidden]{display:none;}
+  .lead-box input{padding:8px 10px;font-size:.84rem;}
+  .lead-box .lead-actions{display:flex;gap:8px;flex-wrap:wrap;}
+  .lead-box .lead-actions a{
+    flex:1;
+    text-align:center;
+    font-size:.8rem;
+    padding:8px 10px;
+    border-radius:8px;
+    text-decoration:none;
+    font-weight:600;
+  }
+  .lead-wa{background:#3DAA5B;color:#fff;}
+  .lead-mail{background:var(--teal);color:#fff;}
+</style>
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Source+Sans+3:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+
+<header>
+  <div class="wrap nav">
+    <div class="brand">
+      <span class="brand-mark">LA</span>
+      Librerías Andinas
+    </div>
+    <ul class="links">
+      <li><a href="#catalogo">Catálogo</a></li>
+      <li><a href="#sucursales">Sucursales</a></li>
+      <li><a href="#opiniones">Opiniones</a></li>
+      <li><a href="#contacto">Contacto</a></li>
+    </ul>
+    <a href="#contacto" class="btn btn-primary">Escríbenos</a>
+  </div>
+</header>
+
+<main>
+  <section class="hero wrap">
+    <div>
+      <p class="eyebrow">Librería peruana · desde 1998</p>
+      <h1>Libros que acompañan cada etapa del camino.</h1>
+      <p>Tres generaciones vendiendo libros en el Perú: textos escolares, literatura andina, novedades editoriales y encargos especiales a cualquier región del país.</p>
+      <div class="hero-ctas">
+        <a class="btn btn-primary" href="#contacto">Hacer un pedido</a>
+        <a class="btn btn-ghost" href="#catalogo">Ver catálogo destacado</a>
+      </div>
+      <div class="stat-row">
+        <div class="stat"><b>26</b><span>años en el mercado</span></div>
+        <div class="stat"><b>3</b><span>sedes: Lima, Cusco, Arequipa</span></div>
+        <div class="stat"><b>40k+</b><span>títulos en catálogo</span></div>
+      </div>
+    </div>
+    <div class="hero-art" aria-hidden="true">
+      <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice">
+        <defs>
+          <pattern id="zig" width="40" height="40" patternUnits="userSpaceOnUse">
+            <path d="M0 30 L10 10 L20 30 L30 10 L40 30" fill="none" stroke="rgba(255,248,236,.35)" stroke-width="3"/>
+          </pattern>
+        </defs>
+        <rect width="400" height="300" fill="url(#zig)"/>
+        <g fill="rgba(255,248,236,.9)">
+          <rect x="60" y="150" width="26" height="90" rx="2"/>
+          <rect x="94" y="130" width="26" height="110" rx="2"/>
+          <rect x="128" y="165" width="26" height="75" rx="2"/>
+          <rect x="162" y="115" width="26" height="125" rx="2"/>
+        </g>
+      </svg>
+    </div>
+  </section>
+
+  <section id="catalogo" class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">Catálogo destacado</p>
+      <h2>Cuatro secciones que más nos piden</h2>
+      <p>Trabajamos con editoriales nacionales e internacionales; si un título no está en stock, lo encargamos.</p>
+    </div>
+    <div class="grid3">
+      <div class="card">
+        <span class="tag">Escolar</span>
+        <h3>Textos y útiles escolares</h3>
+        <p>Listas completas por colegio, con paquetes y descuento por volumen para inicio de año escolar.</p>
+      </div>
+      <div class="card">
+        <span class="tag">Literatura</span>
+        <h3>Narrativa peruana y andina</h3>
+        <p>Autores como Arguedas, Vargas Llosa y nuevas voces regionales, en ediciones de tapa dura y bolsillo.</p>
+      </div>
+      <div class="card">
+        <span class="tag">Universitario</span>
+        <h3>Bibliografía académica</h3>
+        <p>Textos técnicos y de especialidad para universidades e institutos, con envíos a todo el Perú.</p>
+      </div>
+      <div class="card">
+        <span class="tag">Infantil</span>
+        <h3>Cuentos e ilustrados</h3>
+        <p>Colección infantil bilingüe (español-quechua) y juvenil, con mesa de novedades cada mes.</p>
+      </div>
+      <div class="card">
+        <span class="tag">Papelería</span>
+        <h3>Útiles y agendas</h3>
+        <p>Cuadernos, agendas artesanales y materiales de oficina para complementar tu pedido.</p>
+      </div>
+      <div class="card">
+        <span class="tag">Encargos</span>
+        <h3>Pedidos especiales</h3>
+        <p>Buscamos ediciones agotadas o importadas bajo pedido, con tiempo estimado de 7 a 15 días.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="sucursales" class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">Sucursales</p>
+      <h2>Visítanos en tres ciudades</h2>
+    </div>
+    <div class="stores">
+      <div class="store card">
+        <h3>Librerías Andinas — Lima</h3>
+        <p class="addr">Jr. de la Unión 542, Cercado de Lima</p>
+        <p class="addr">Lun–Sáb 9:00–20:00 · Dom 10:00–14:00</p>
+      </div>
+      <div class="store card">
+        <h3>Librerías Andinas — Cusco</h3>
+        <p class="addr">Av. El Sol 315, Cusco</p>
+        <p class="addr">Lun–Sáb 9:00–19:30</p>
+      </div>
+      <div class="store card">
+        <h3>Librerías Andinas — Arequipa</h3>
+        <p class="addr">Calle Mercaderes 210, Arequipa</p>
+        <p class="addr">Lun–Sáb 9:30–19:00</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="opiniones" class="quote-strip">
+    <div class="wrap" style="padding-block:44px;">
+      <div class="section-head">
+        <p class="eyebrow">Opiniones</p>
+        <h2>Lo que dicen nuestros lectores</h2>
+      </div>
+      <div class="quotes">
+        <blockquote class="quote">
+          “Encargué un libro agotado y llegó en una semana a Arequipa.”
+          <footer>— Rosa M., Arequipa</footer>
+        </blockquote>
+        <blockquote class="quote">
+          “Compré todos los textos escolares de mis hijos en un solo lugar.”
+          <footer>— Jorge P., Lima</footer>
+        </blockquote>
+        <blockquote class="quote">
+          “Buena selección de literatura andina, atención muy amable.”
+          <footer>— Ana Q., Cusco</footer>
+        </blockquote>
+      </div>
+    </div>
+  </section>
+
+  <section id="contacto" class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">Contacto</p>
+      <h2>Cuéntanos qué necesitas</h2>
+      <p>Completa el formulario: al enviarlo se abrirá WhatsApp y tu correo con el mensaje ya redactado para nosotros, o resuélvelo directo con nuestro asistente virtual (ícono inferior derecho).</p>
+    </div>
+    <div class="contact-grid">
+      <form id="contactForm">
+        <div class="field">
+          <label for="cf-name">Nombre completo</label>
+          <input id="cf-name" name="name" type="text" required placeholder="Ej. María Torres">
+        </div>
+        <div class="field">
+          <label for="cf-phone">Teléfono</label>
+          <input id="cf-phone" name="phone" type="tel" required placeholder="Ej. 987 654 321">
+        </div>
+        <div class="field">
+          <label for="cf-email">Correo</label>
+          <input id="cf-email" name="email" type="email" placeholder="tucorreo@ejemplo.com">
+        </div>
+        <div class="field">
+          <label for="cf-msg">Mensaje</label>
+          <textarea id="cf-msg" name="message" required placeholder="Cuéntanos qué libro o consulta tienes..."></textarea>
+        </div>
+        <div class="send-row">
+          <button type="submit" class="btn btn-primary">Enviar a WhatsApp y correo</button>
+        </div>
+        <p id="formStatus" role="status"></p>
+        <p class="form-note">Se abrirán dos pestañas: WhatsApp (982 770 361) y tu cliente de correo, ambas con tu mensaje ya redactado — solo confirmas el envío.</p>
+      </form>
+      <div class="contact-info">
+        <div class="card">
+          <h3>WhatsApp</h3>
+          <p><a class="link" href="https://wa.me/51982770361" target="_blank" rel="noopener">+51 982 770 361</a></p>
+        </div>
+        <div class="card">
+          <h3>Correo</h3>
+          <p><a class="link" href="mailto:atco.jah@gmail.com">atco.jah@gmail.com</a></p>
+        </div>
+        <div class="card">
+          <h3>Horario de atención</h3>
+          <p>Lunes a sábado, 9:00 a.m. – 8:00 p.m. (hora Perú)</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap foot-row">
+    <span>© 2026 Librerías Andinas · Lima · Cusco · Arequipa</span>
+    <span>Hecho para lectores de todo el Perú</span>
+  </div>
+</footer>
+
+<!-- ---------- Chatbot ---------- -->
+<button id="chat-toggle" aria-label="Abrir chat de Librerías Andinas" aria-expanded="false">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
+  </svg>
+</button>
+
+<div id="chat-panel" hidden>
+  <div class="chat-head">
+    <span class="brand-mark" style="width:30px;height:30px;font-size:.85rem;">LA</span>
+    <div>
+      <b>Asistente Andinas</b>
+      <span>Responde al instante</span>
+    </div>
+    <button class="chat-close" id="chat-close" aria-label="Cerrar chat">×</button>
+  </div>
+  <div id="chat-body"></div>
+  <div class="chips" id="chat-chips"></div>
+  <div class="lead-box" id="lead-box" hidden>
+    <label for="lead-name" style="font-size:.78rem;font-weight:600;">Déjanos tu nombre y teléfono y reenviamos esta conversación:</label>
+    <input id="lead-name" placeholder="Tu nombre" type="text">
+    <input id="lead-phone" placeholder="Tu teléfono" type="tel">
+    <div class="lead-actions">
+      <a class="lead-wa" id="lead-wa" href="#" target="_blank" rel="noopener">Enviar por WhatsApp</a>
+      <a class="lead-mail" id="lead-mail" href="#">Enviar por correo</a>
+    </div>
+  </div>
+  <div class="chat-input-row">
+    <input id="chat-input" type="text" placeholder="Escribe tu pregunta..." aria-label="Escribe tu pregunta">
+    <button id="chat-send">Enviar</button>
+  </div>
+</div>
+
+<script>
+(function(){
+  var WA_NUMBER = "51982770361";
+  var EMAIL = "atco.jah@gmail.com";
+
+  var faq = [
+    { q:"¿Cuál es el horario de atención?",
+      k:["horario","hora","abren","cierran","atienden"],
+      a:"Atendemos de lunes a sábado de 9:00 a.m. a 8:00 p.m. Los domingos solo la sede de Lima, de 10:00 a.m. a 2:00 p.m." },
+    { q:"¿Dónde están ubicadas las tiendas?",
+      k:["ubicac","direccion","dónde","donde","sede","sucursal"],
+      a:"Tenemos 3 sedes: Jr. de la Unión 542 (Lima), Av. El Sol 315 (Cusco) y Calle Mercaderes 210 (Arequipa)." },
+    { q:"¿Hacen envíos a todo el Perú?",
+      k:["envio","envío","delivery","provincia","llega"],
+      a:"Sí, enviamos a todo el Perú mediante courier. Lima metropolitana: 24-48 h. Provincias: 3-7 días útiles." },
+    { q:"¿Qué métodos de pago aceptan?",
+      k:["pago","yape","plin","tarjeta","efectivo","transferencia"],
+      a:"Aceptamos efectivo, tarjeta de débito/crédito, Yape, Plin y transferencia bancaria." },
+    { q:"¿Puedo devolver o cambiar un libro?",
+      k:["devolu","cambio","garantia","garantía","reembolso"],
+      a:"Sí, tienes 7 días desde la compra para cambios con boleta y el libro en buen estado (no aplica a encargos especiales)." },
+    { q:"¿Tienen los textos escolares de mi colegio?",
+      k:["texto escolar","colegio","lista escolar","utiles","útiles"],
+      a:"Trabajamos las listas de los principales colegios. Envíanos el nombre del colegio y grado por WhatsApp y te confirmamos el paquete." },
+    { q:"¿Hacen encargos de libros agotados o importados?",
+      k:["encargo","importado","agotado","no tienen","pedido especial"],
+      a:"Sí, hacemos pedidos especiales de títulos agotados o importados. El tiempo estimado es de 7 a 15 días útiles." },
+    { q:"¿Tienen colección infantil en quechua?",
+      k:["infantil","niños","ninos","quechua","cuentos"],
+      a:"Sí, contamos con una colección infantil bilingüe español-quechua y una sección juvenil con novedades mensuales." },
+    { q:"¿Tienen promociones o descuentos?",
+      k:["promocion","promoción","descuento","oferta","campaña"],
+      a:"Tenemos descuentos por campaña escolar y packs universitarios. Para promociones vigentes, escríbenos por WhatsApp." },
+    { q:"¿Cómo hablo con una persona del equipo?",
+      k:["asesor","persona","humano","hablar con alguien","contacto"],
+      a:"Con gusto. Escríbenos por WhatsApp al +51 982 770 361 o por correo a atco.jah@gmail.com, o deja tus datos aquí abajo y reenviamos esta conversación." }
+  ];
+
+  var body = document.getElementById("chat-body");
+  var chips = document.getElementById("chat-chips");
+  var panel = document.getElementById("chat-panel");
+  var toggleBtn = document.getElementById("chat-toggle");
+  var closeBtn = document.getElementById("chat-close");
+  var input = document.getElementById("chat-input");
+  var sendBtn = document.getElementById("chat-send");
+  var leadBox = document.getElementById("lead-box");
+  var leadName = document.getElementById("lead-name");
+  var leadPhone = document.getElementById("lead-phone");
+  var leadWa = document.getElementById("lead-wa");
+  var leadMail = document.getElementById("lead-mail");
+
+  var transcript = [];
+
+  function addMsg(text, who){
+    var div = document.createElement("div");
+    div.className = "msg " + who;
+    div.textContent = text;
+    body.appendChild(div);
+    body.scrollTop = body.scrollHeight;
+    transcript.push((who === "user" ? "Cliente: " : "Asistente: ") + text);
+  }
+
+  function renderChips(){
+    chips.innerHTML = "";
+    faq.forEach(function(item){
+      var b = document.createElement("button");
+      b.className = "chip";
+      b.type = "button";
+      b.textContent = item.q;
+      b.addEventListener("click", function(){ ask(item.q); });
+      chips.appendChild(b);
+    });
+    var advisor = document.createElement("button");
+    advisor.className = "chip";
+    advisor.type = "button";
+    advisor.style.borderColor = "var(--terracota)";
+    advisor.textContent = "Hablar con un asesor";
+    advisor.addEventListener("click", function(){
+      addMsg("Hablar con un asesor", "user");
+      showLeadBox();
+    });
+    chips.appendChild(advisor);
+  }
+
+  function findAnswer(text){
+    var t = text.toLowerCase();
+    for (var i=0;i<faq.length;i++){
+      for (var j=0;j<faq[i].k.length;j++){
+        if (t.indexOf(faq[i].k[j]) !== -1) return faq[i].a;
+      }
+    }
+    return null;
+  }
+
+  function ask(text){
+    addMsg(text, "user");
+    var found = findAnswer(text);
+    setTimeout(function(){
+      if (found){
+        addMsg(found, "bot");
+      } else {
+        addMsg("No tengo una respuesta exacta para eso. Elige una pregunta de la lista o deja tus datos y te contactamos por WhatsApp o correo.", "bot");
+        showLeadBox();
+      }
+    }, 300);
+  }
+
+  function showLeadBox(){
+    leadBox.hidden = false;
+    updateLeadLinks();
+  }
+
+  function updateLeadLinks(){
+    var name = leadName.value.trim() || "Cliente web";
+    var phone = leadPhone.value.trim();
+    var conv = transcript.slice(-8).join("\n");
+    var waText = "Hola, soy " + name + (phone ? " (tel: " + phone + ")" : "") +
+      ". Vengo del chat de la web de Librerías Andinas. Esta fue mi conversación:\n" + conv;
+    var mailBody = "Nombre: " + name + "\nTeléfono: " + phone + "\n\nConversación en el asistente web:\n" + conv;
+
+    leadWa.href = "https://wa.me/" + WA_NUMBER + "?text=" + encodeURIComponent(waText);
+    leadMail.href = "mailto:" + EMAIL + "?subject=" + encodeURIComponent("Consulta desde el chat web - " + name) +
+      "&body=" + encodeURIComponent(mailBody);
+  }
+
+  leadName.addEventListener("input", updateLeadLinks);
+  leadPhone.addEventListener("input", updateLeadLinks);
+
+  function openPanel(){
+    panel.hidden = false;
+    toggleBtn.setAttribute("aria-expanded","true");
+    if (body.children.length === 0){
+      addMsg("¡Hola! Soy el asistente virtual de Librerías Andinas. Elige una pregunta o escribe la tuya.", "bot");
+      renderChips();
+    }
+    input.focus();
+  }
+  function closePanel(){
+    panel.hidden = true;
+    toggleBtn.setAttribute("aria-expanded","false");
+  }
+
+  toggleBtn.addEventListener("click", function(){
+    if (panel.hidden) openPanel(); else closePanel();
+  });
+  closeBtn.addEventListener("click", closePanel);
+
+  sendBtn.addEventListener("click", function(){
+    var v = input.value.trim();
+    if (!v) return;
+    ask(v);
+    input.value = "";
+  });
+  input.addEventListener("keydown", function(e){
+    if (e.key === "Enter"){ sendBtn.click(); }
+  });
+
+  // ---------- Contact form ----------
+  var form = document.getElementById("contactForm");
+  var status = document.getElementById("formStatus");
+  form.addEventListener("submit", function(e){
+    e.preventDefault();
+    var name = document.getElementById("cf-name").value.trim();
+    var phone = document.getElementById("cf-phone").value.trim();
+    var email = document.getElementById("cf-email").value.trim();
+    var msg = document.getElementById("cf-msg").value.trim();
+
+    var waText = "Hola, soy " + name + " (tel: " + phone + (email ? ", correo: " + email : "") +
+      "). Mensaje: " + msg;
+    var mailBody = "Nombre: " + name + "\nTeléfono: " + phone + "\nCorreo: " + (email || "-") + "\n\nMensaje:\n" + msg;
+
+    var waUrl = "https://wa.me/" + WA_NUMBER + "?text=" + encodeURIComponent(waText);
+    var mailUrl = "mailto:" + EMAIL + "?subject=" + encodeURIComponent("Nuevo contacto web - " + name) +
+      "&body=" + encodeURIComponent(mailBody);
+
+    window.open(waUrl, "_blank", "noopener");
+    window.location.href = mailUrl;
+
+    status.textContent = "Abrimos WhatsApp en una pestaña nueva y tu correo aquí mismo. Solo confirma el envío en cada uno.";
+    form.reset();
+  });
+})();
+</script>
